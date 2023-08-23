@@ -272,7 +272,9 @@ function startGame() {
 
 startButton.addEventListener("click", startGame);
 
-const song = new Audio(); // TODO add url link
+const song = new Audio(
+  "https://github.com/TDong17/js-dev-final-capstone-starter-whack-a-mole/blob/main/assets/basketball-game-65753.mp3?raw=true"
+);
 
 function playAudio(audioObj) {
   audioObj.play();
