@@ -8,7 +8,7 @@ let time = 0;
 let timer;
 let lastHole = 0;
 let points = 0;
-let difficulty = "easy";
+let difficulty = "easy"; // default to easy difficulty (selected radio as default)
 
 /**
  * Generates a random integer within a range.
@@ -127,7 +127,9 @@ function showUp() {
  *
  */
 function showAndHide(hole, delay) {
+  // show image
   toggleVisibility(hole);
+  // after the delay, hide image and check if game is over.
   const timeoutID = setTimeout(() => {
     toggleVisibility(hole);
     gameOver();
@@ -208,9 +210,7 @@ function startTimer() {
  *
  */
 function whack(event) {
-  // if (time > 0) {
   updateScore();
-  // }
   return points;
 }
 
@@ -244,7 +244,9 @@ function setDuration(duration) {
  *
  */
 function stopGame() {
+  // stop audio when game stops
   stopAudio(song);
+  // clear the timer
   clearInterval(timer);
   return "game stopped";
 }
@@ -256,22 +258,27 @@ function stopGame() {
  *
  */
 function startGame() {
+  // stop the previous game and clear the score
   stopGame();
   clearScore();
+  // get the difficulty selected
   var value = document.getElementsByName("difficulty");
   var selectedDifficulty = Array.from(value).find((radio) => radio.checked);
   difficulty = selectedDifficulty.value;
   console.log(difficulty);
+  // set duration to 10 seconds on the timer, start it, and play the game audio
   setDuration(10);
   startTimer();
+  play();
+  //start the game and show the first image
   showUp();
   setEventListeners();
-  play();
   return "game started";
 }
 
 startButton.addEventListener("click", startGame);
 
+// Audio functions
 const song = new Audio(
   "https://github.com/TDong17/js-dev-final-capstone-starter-whack-a-mole/blob/main/assets/basketball-game-65753.mp3?raw=true"
 );
